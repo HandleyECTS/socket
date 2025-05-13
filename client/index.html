@@ -20,7 +20,7 @@
     </div>
     <script defer>
       const chats = document.getElementById("chats");
-      const socket = io("http://localhost:3000"); //the server link
+      const socket = io("https://socket-x6vt.onrender.com"); //the server link
       socket.on("connect", () => {
         console.log("Connected to server");
       });
