@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Service</title>
+    <script
+      src="https://cdn.socket.io/4.8.1/socket.io.min.js"
+      integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div>
+      <div>
+        <input type="text" id="myMessage" />
+        <button id="submitBtn">Submit</button>
+      </div>
+      <ul id="chats"></ul>
+    </div>
+    <script defer>
+      const chats = document.getElementById("chats");
+      const socket = io("http://localhost:3000"); //the server link
+      socket.on("connect", () => {
+        console.log("Connected to server");
+      });
+      socket.on("message", (mess) => {
+        chats.innerHTML += `<li>${mess}</li>`;
+      });
+
+      document
+        .getElementById("submitBtn")
+        .addEventListener("click", function () {
+          let message = document.getElementById("myMessage").value;
+          socket.emit("message", message);
+        });
+    </script>
+  </body>
+</html>
